@@ -19,19 +19,10 @@ DbGate web: https://dbgate.org&#xD;
 Live demo on: https://demo.dbgate.org&#xD;
 Source code on GitHub: https://github.com/dbgate/dbgate/&#xD;
 &#xD;
-Supported databases: MySQL, PostgreSQL, SQL Server, Oracle (experimental), MongoDB, Redis, SQLite, Amazon Redshift, CockroachDB</Overview>
-  <Category>Productivity: Tools:</Category>
-  <WebUI>http://[IP]:[PORT:3000]</WebUI>
-  <TemplateURL/>
-  <Icon>https://raw.githubusercontent.com/dbgate/dbgate/master/app/icon.png</Icon>
-  <ExtraParams/>
-  <PostArgs/>
-  <CPUset/>
-  <DateInstalled>1696552457</DateInstalled>
-  <DonateText/>
-  <DonateLink/>
-  <Requires>Optional Extra Environmental Variables (https://dbgate.org/docs/env-variables.html)&#xD;
-===================&#xD;
+Supported databases: MySQL, PostgreSQL, SQL Server, Oracle (experimental), MongoDB, Redis, SQLite, Amazon Redshift, CockroachDB&#xD;
+&#xD;
+Optional Extra Environmental Variables (https://dbgate.org/docs/env-variables.html):&#xD;
+---&#xD;
 WEB_ROOT - if you need to run DbGate in virtual subdirectory (eg. for value /dbadmin , dbgate will be accessible on localhost:3000/dbadmin )&#xD;
 LOGIN , PASSWORD - credentials for accessing web app (obsolete, use LOGINS AND LOGIN_PASSWORD instead)&#xD;
 PERMISSIONS - list of comma separated permissions. See also permission list below&#xD;
@@ -43,12 +34,23 @@ LOGIN_PERMISSIONS_[login] - list of comma separated permissions for given login.
 TOKEN_LIFETIME - lifetime of access token. After this time, logged user will be redirected to login page. Default is 1d (means 1 day). Possible are values like 3h (3 hours), 10m (10 minutes), 2d (2 days)&#xD;
 SINGLE_CONNECTION - connection id. If defined, only this connection will be available (must be used with SINGLE_DATABASE)&#xD;
 SINGLE_DATABASE - database name, only this database will be available. (must be used with SINGLE_CONNECTION)&#xD;
-BASIC_AUTH - if true or 1 and LOGIN or LOGINS are defined, baseic authentization of both web and API is used. Otherwise, login form and JWT token base API authentization is used. Basic authentization cannot be used for active directory/LDAP authentization.</Requires>
-  <Config Name="App Data" Target="/root/.dbgate" Default="/mnt/user/appdata/dbgate" Mode="rw" Description="Persistant Data" Type="Path" Display="always" Required="false" Mask="false">/mnt/user/appdata/dbgate</Config>
-  <Config Name="WebUI Port" Target="3000" Default="3000" Mode="tcp" Description="" Type="Port" Display="always" Required="true" Mask="false">3001</Config>
+BASIC_AUTH - if true or 1 and LOGIN or LOGINS are defined, baseic authentization of both web and API is used. Otherwise, login form and JWT token base API authentization is used. Basic authentization cannot be used for active directory/LDAP authentization.</Overview>
+  <Category>Productivity: Tools:</Category>
+  <WebUI>http://[IP]:[PORT:3000]</WebUI>
+  <TemplateURL/>
+  <Icon>https://raw.githubusercontent.com/dbgate/dbgate/master/app/icon.png</Icon>
+  <ExtraParams/>
+  <PostArgs/>
+  <CPUset/>
+  <DateInstalled>1696566525</DateInstalled>
+  <DonateText/>
+  <DonateLink/>
+  <Requires/>
+  <Config Name="Data" Target="/root/.dbgate" Default="/mnt/user/appdata/dbgate" Mode="rw" Description="Dbgate data" Type="Path" Display="always" Required="false" Mask="false">/mnt/user/appdata/dbgate</Config>
+  <Config Name="WebUI Port" Target="3000" Default="3000" Mode="tcp" Description="" Type="Port" Display="always" Required="true" Mask="false">3000</Config>
   <Config Name="LOG_LEVEL" Target="LOG_LEVEL" Default="info" Mode="" Description="values: trace, debug, info, warn, error, fatal" Type="Variable" Display="always" Required="false" Mask="false">info</Config>
   <Config Name="WEB_ROOT" Target="WEB_ROOT" Default="/" Mode="" Description="if you need to run DbGate in virtual subdirectory (eg. for value /dbadmin , dbgate will be accessible on localhost:3000/dbadmin )" Type="Variable" Display="always" Required="false" Mask="false">/</Config>
   <Config Name="LOGINS" Target="LOGINS" Default="admin" Mode="" Description="comma delimited list of aditional logins, leave this blank if you want to disable authentication" Type="Variable" Display="always" Required="false" Mask="false">admin</Config>
   <Config Name="LOGIN_PASSWORD_admin" Target="LOGIN_PASSWORD_admin" Default="admin" Mode="" Description="Default: admin&#13;&#10;LOGIN_PASSWORD_[login] - password for specified login" Type="Variable" Display="always" Required="false" Mask="true">admin</Config>
-  <Config Name="LOGIN_PERMISSIONS_admin" Target="LOGIN_PERMISSIONS_admin" Default="*" Mode="" Description="LOGIN_PERMISSIONS_[login] - list of comma separated permissions for given login.&#13;&#10;By default, all permissions are available. If you use ~ prefix, permission is revoked.&#13;&#10;&#13;&#10;Example: &#13;&#10;~*, widgets/database - all permissions are revoked, only database widget is visible&#13;&#10;~widgets/*, widgets/database - all widget permissions are revoked, only database widget is visible&#13;&#10;~/connections/*, connections/con1 - all connections except from con1 are hidden and disabled&#13;&#10;&#13;&#10;Full list:&#13;&#10;settings/change - allows change settings&#13;&#10;plugins/install - allows install plugins&#13;&#10;widgets/[widget_name] - if not granted, widget is hidden. Widget is strip on left side. Available widgets:&#13;&#10;database&#13;&#10;file&#13;&#10;history&#13;&#10;archive&#13;&#10;plugins&#13;&#10;cell-data&#13;&#10;app&#13;&#10;files/[folder]/read - read files from given folder&#13;&#10;files/[folder]/write - write files to given folder&#13;&#10;apps/write - save to apps content&#13;&#10;archive/write - save to archive content&#13;&#10;connections/[connection_id] - allow to see and use defined connection" Type="Variable" Display="always" Required="false" Mask="false">*</Config>
+  <Config Name="LOGIN_PERMISSIONS_admin" Target="LOGIN_PERMISSIONS_admin" Default="*" Mode="" Description="LOGIN_PERMISSIONS_[login] - list of comma separated permissions for given login." Type="Variable" Display="always" Required="false" Mask="false">*</Config>
 </Container>
