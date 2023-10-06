@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<Container version="2">
+  <Name>victoria-metrics</Name>
+  <Repository>victoriametrics/victoria-metrics:stable</Repository>
+  <Registry>https://hub.docker.com/r/victoriametrics/victoria-metrics</Registry>
+  <Network>bridge</Network>
+  <MyIP/>
+  <Shell>bash</Shell>
+  <Privileged>false</Privileged>
+  <Support>https://forums.unraid.net/topic/146069-support-alexreds-template-repository/</Support>
+  <Project>https://github.com/VictoriaMetrics/VictoriaMetrics</Project>
+  <Overview>VictoriaMetrics is a fast, cost-effective and scalable monitoring solution and time series database.&#xD;
+&#xD;
+TLDR: It is a faster, more lightweight replacement to InfluxDB/TimescaleDB/etc (up to 20x faster data digestion,  up to 7-10x less ram usage). Can be used in place of InfluxDB in many apps such as HomeAssistant. Includes a great web UI for query exploration.&#xD;
+&#xD;
+Git repository: https://github.com/VictoriaMetrics/VictoriaMetrics&#xD;
+Dockerhub: https://hub.docker.com/r/victoriametrics/victoria-metrics&#xD;
+Website: https://victoriametrics.com&#xD;
+&#xD;
+VictoriaMetrics prominent features:&#xD;
+ - Long-term storage for Prometheus.&#xD;
+ - Drop-in replacement for Prometheus and Graphite in Grafana.&#xD;
+ - Easy setup and operation with a single executable and configuration via command-line flags.&#xD;
+ - Fast backups with vmbackup/vmrestore tools.&#xD;
+ - Implements MetricsQL query language.&#xD;
+ - Global query view for multiple data sources.&#xD;
+ - High performance and scalability, outperforming InfluxDB and TimescaleDB by up to 20x.&#xD;
+ - Efficient RAM usage, 10x less than InfluxDB and up to 7x less than others.&#xD;
+ - Optimized for high-churn time series data.&#xD;
+ - High data compression, storing up to 70x more data points in limited storage.&#xD;
+ - Ideal for high-latency IO and low IOPS storage.&#xD;
+ - Can substitute moderately sized clusters of competing solutions.&#xD;
+ - Protects data from corruption on unclean shutdown.&#xD;
+ - Supports various metrics protocols, including Prometheus, InfluxDB, Graphite, OpenTSDB, and more.&#xD;
+ - Offers stream aggregation, metrics relabeling, and series limiting.&#xD;
+ - Suitable for diverse data sources like APM, Kubernetes, IoT, financial data, and more.&#xD;
+ - Open source cluster version.&#xD;
+ - Compatible with NFS-based storages like Amazon EFS and Google Filestore.</Overview>
+  <Category>Backup: Productivity: Tools:</Category>
+  <WebUI>http://[IP]:[PORT:8428]/vmui</WebUI>
+  <TemplateURL/>
+  <Icon>https://raw.githubusercontent.com/alex-red/unraid-ca-templates/master/templates/images/victoria-metrics-logo.png</Icon>
+  <ExtraParams/>
+  <PostArgs>-envflag.enable</PostArgs>
+  <CPUset/>
+  <DateInstalled>1696630722</DateInstalled>
+  <DonateText/>
+  <DonateLink/>
+  <Requires>Notes&#xD;
+===&#xD;
+VictoriaMetrics is very powerful with lots of configurations available, definitely go through the docs: https://docs.victoriametrics.com to get comfortable.&#xD;
+&#xD;
+VMAgent may be needed depending on your use case.&#xD;
+&#xD;
+For integrating into HomeAssistant: https://community.home-assistant.io/t/influxdb-vs-victoriametrics/453361 (you only need the influxdb: configurations shared throughout the thread)</Requires>
+  <Config Name="Data" Target="/victoria-metrics-data" Default="/mnt/user/appdata/victoria-metrics" Mode="rw" Description="Data directory, includes config and the actual DB" Type="Path" Display="always" Required="true" Mask="false">/mnt/user/appdata/victoria-metrics</Config>
+  <Config Name="Port" Target="8428" Default="8428" Mode="tcp" Description="" Type="Port" Display="always" Required="true" Mask="false">8428</Config>
+  <Config Name="Retention Period" Target="retentionPeriod" Default="99y" Mode="" Description="Data with timestamps outside the retentionPeriod is automatically deleted. The minimum retentionPeriod is 24h or 1d.vThe following optional suffixes are supported: h (hour), d (day), w (week), y (year). If suffix isn't set, then the duration is counted in months (default 1m)." Type="Variable" Display="always" Required="true" Mask="false">99y</Config>
+</Container>
