@@ -1,6 +1,8 @@
 # UNRAID CA Templates
 Custom unraid docker container templates for the Community Applications store
 
+Support thread: https://forums.unraid.net/topic/146069-support-alexreds-template-repository/
+
 ---
 ## Templates
 
@@ -12,5 +14,13 @@ Custom unraid docker container templates for the Community Applications store
     </td>
   </tr>
 </table>
+
+---
+
+## Creating templates
+
+- https://www.youtube.com/watch?v=g6iMwea-HLY
+- https://forums.unraid.net/topic/38619-docker-template-xml-schema/
+- https://forums.unraid.net/topic/57181-real-docker-faq/#comment-566084
 
 ---
