@@ -11,7 +11,7 @@ Support thread: https://forums.unraid.net/topic/146069-support-alexreds-template
 <table>
   <thead>
     <tr>
-      <th width="32px"></th>
+      <th width="60px"></th>
       <th>Project</th>
       <th>Category</th>
       <th>Description</th>
