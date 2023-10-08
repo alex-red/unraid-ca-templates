@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<Container version="2">
+  <Name>auto-m4b</Name>
+  <Repository>seanap/auto-m4b</Repository>
+  <Registry>https://hub.docker.com/r/seanap/auto-m4b</Registry>
+  <Network>bridge</Network>
+  <MyIP/>
+  <Shell>bash</Shell>
+  <Privileged>false</Privileged>
+  <Support>https://forums.unraid.net/topic/146069-support-alexreds-template-repository</Support>
+  <Project>https://github.com/seanap/auto-m4b</Project>
+  <Overview>auto-m4b is a docker container that will watch a folder for new books, auto convert mp3 books to chapterized m4b, and move all m4b books to a specific output folder. This output folder is where the beets.io audible plugin will look for audiobooks and use the audible api to perfectly tag and organize your books. See: https://github.com/seanap/beets-audible&#xD;
+&#xD;
+TLDR: watches a /recentlyadded folder, all multifile m4b/mp3/m4a/ogg books will be converted to a chapterized m4b and saved to an /untagged folder&#xD;
+&#xD;
+Github: https://github.com/seanap/auto-m4b&#xD;
+Dockerhub: https://hub.docker.com/r/seanap/auto-m4b&#xD;
+&#xD;
+Limitations:&#xD;
+ - The chapters are based on the mp3 tracks. A single mp3 file will become a single m4b with 1 chapter, also if the mp3 filenames are garbarge then your m4b chapternames will be terrible as well. See section on Chapters for how to manually adjust.&#xD;
+ - Right now book folders with nested subfolders will be moved to a /fix folder for manual filename/folder fixing. It should be possible to modify the auto-m4b-tool.sh script to automatically prefix the subfoldername and move the files up a level, let me know if you know how to do this.&#xD;
+ - The conversion process actually strips some tags and covers from the files, which is why you need to use a tagger (mp3tag or beets.io) before adding to Plex.</Overview>
+  <Category>Tools: MediaServer:Other</Category>
+  <WebUI/>
+  <TemplateURL/>
+  <Icon>https://raw.githubusercontent.com/alex-red/unraid-ca-templates/master/templates/images/m4b-icon.png</Icon>
+  <ExtraParams>--cpu-shares=256</ExtraParams>
+  <PostArgs/>
+  <CPUset/>
+  <DateInstalled>1696745853</DateInstalled>
+  <DonateText/>
+  <DonateLink/>
+  <Requires>Notes&#xD;
+===&#xD;
+--cpu-shares=256 by default, this will limit the container to 25% of your available CPU cycles.&#xD;
+Conversion speed depends on your cpu, and at 25% it can be slow. 1GB audiobook may take 30 minutes or more. Either change --cpu-shares=1024 (full cpu usage), or run it overnight.</Requires>
+  <Config Name="Data" Target="/config" Default="/mnt/user/appdata/auto-m4b" Mode="rw" Description="" Type="Path" Display="always" Required="true" Mask="false">/mnt/user/appdata/auto-m4b</Config>
+  <Config Name="Staging Folder" Target="/temp" Default="" Mode="rw" Description="Folder where operations will take place. Inside of the folder, the following structure will be used: recentlyadded, merge, untagged, delete, fix, backup.&#13;&#10;&#13;&#10;Suggested location: empty directory placed on a cache drive near your media, the subdirectories will be created automatically. Note: you may need to run chown nobody:users -R * on the folder." Type="Path" Display="always" Required="true" Mask="false"></Config>
+  <Config Name="Save Backup Before Job" Target="MAKE_BACKUP" Default="N" Mode="" Description="[Y | N] If set to Y, will make a backup of files in the /temp/backup directory." Type="Variable" Display="always" Required="false" Mask="false">N</Config>
+  <Config Name="PUID" Target="PUID" Default="99" Mode="" Description="" Type="Variable" Display="always" Required="false" Mask="false">99</Config>
+  <Config Name="PGID" Target="PGID" Default="" Mode="" Description="" Type="Variable" Display="always" Required="false" Mask="false">100</Config>
+  <Config Name="Scan Interval" Target="SLEEPTIME" Default="1m" Mode="" Description="Interval to check for /temp/recentlyadded files in minutes." Type="Variable" Display="always" Required="false" Mask="false">1m</Config>
+</Container>
