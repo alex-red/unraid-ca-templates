@@ -43,7 +43,7 @@ VictoriaMetrics prominent features:&#xD;
   <ExtraParams/>
   <PostArgs>-envflag.enable</PostArgs>
   <CPUset/>
-  <DateInstalled>1696630722</DateInstalled>
+  <DateInstalled>1696748868</DateInstalled>
   <DonateText/>
   <DonateLink/>
   <Requires>Notes&#xD;
@@ -56,4 +56,6 @@ For integrating into HomeAssistant: https://community.home-assistant.io/t/influx
   <Config Name="Data" Target="/victoria-metrics-data" Default="/mnt/user/appdata/victoria-metrics" Mode="rw" Description="Data directory, includes config and the actual DB" Type="Path" Display="always" Required="true" Mask="false">/mnt/user/appdata/victoria-metrics</Config>
   <Config Name="Port" Target="8428" Default="8428" Mode="tcp" Description="" Type="Port" Display="always" Required="true" Mask="false">8428</Config>
   <Config Name="Retention Period" Target="retentionPeriod" Default="99y" Mode="" Description="Data with timestamps outside the retentionPeriod is automatically deleted. The minimum retentionPeriod is 24h or 1d.vThe following optional suffixes are supported: h (hour), d (day), w (week), y (year). If suffix isn't set, then the duration is counted in months (default 1m)." Type="Variable" Display="always" Required="true" Mask="false">99y</Config>
+  <Config Name="Prometheus Scrape File" Target="promscrape_config" Default="" Mode="" Description="Location of promscrape config in the container. For example: /victoria-metrics-data/prometheus.yml. Disabled if nothing is set." Type="Variable" Display="always" Required="false" Mask="false"></Config>
+  <Config Name="Prometheus Scrape Strictly Parse" Target="promscrape_config_strictParse" Default="false" Mode="" Description="Set true to only parse valid promscrape configs.&#13;&#10;Incompatible fields:&#13;&#10;remote_write =&amp;gt; -remoteWrite* &#13;&#10;remote_read =&amp;gt; not supported&#13;&#10;rule_files and alerting =&amp;gt; these sections are supported by vmalert." Type="Variable" Display="always" Required="false" Mask="false">false</Config>
 </Container>
