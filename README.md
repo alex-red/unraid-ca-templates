@@ -47,6 +47,21 @@ Support thread: https://forums.unraid.net/topic/146069-support-alexreds-template
       VictoriaMetrics is a fast, cost-effective and scalable monitoring solution and time series database
     </td>
   </tr>
+
+  <tr>
+    <td>
+      <img src="https://raw.githubusercontent.com/alex-red/unraid-ca-templates/master/templates/images/m4b-icon.png" alt="m4b icon" width="32" height="32"></img>
+    </td>
+    <td>
+      <span>Auto-m4b (https://github.com/seanap/auto-m4b)</span>
+    </td>
+    <td>
+      Media, Tools
+    </td>
+    <td>
+      Auto converts audiobooks with multifile mp3/m4a/ogg/m4b to a chapterized single m4b
+    </td>
+  </tr>
 </table>
 
 ---
