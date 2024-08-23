@@ -32,7 +32,7 @@ Documentation: https://garethgeorge.github.io/backrest/introduction/getting-star
   <ExtraParams/>
   <PostArgs/>
   <CPUset/>
-  <DateInstalled>1724388906</DateInstalled>
+  <DateInstalled>1724448808</DateInstalled>
   <DonateText/>
   <DonateLink/>
   <Requires>Notes&#xD;
@@ -49,7 +49,10 @@ BACKREST_PORT -- port for webui application</Requires>
   <Config Name="Cache" Target="/cache" Default="/mnt/user/appdata/backrest/cache" Mode="rw" Description="path for the restic cache which greatly improves performance." Type="Path" Display="always" Required="true" Mask="false">/mnt/user/appdata/backrest/cache</Config>
   <Config Name="Data" Target="/data" Default="/mnt/user/appdata/backrest/data" Mode="rw" Description="" Type="Path" Display="always" Required="true" Mask="false">/mnt/user/appdata/backrest/data</Config>
   <Config Name="Restic repos" Target="/repos" Default="/mnt/user/appdata/backrest/repos" Mode="rw" Description="(optional) - mount restic repositories on the filesystem" Type="Path" Display="always" Required="false" Mask="false">/mnt/user/appdata/backrest/repos</Config>
-  <Config Name="Path to backup" Target="/backup" Default="/mnt/user/backup" Mode="rw" Description="mount directories for backup" Type="Path" Display="always" Required="false" Mask="false">/mnt/user/backup</Config>
+  <Config Name="Path to backup" Target="/backup" Default="/mnt/user/backup" Mode="ro" Description="mount directories for backup" Type="Path" Display="always" Required="false" Mask="false">/mnt/user/backup</Config>
   <Config Name="WebUI" Target="9898" Default="9898" Mode="tcp" Description="Webui access port, BACKREST_PORT env variable can be used to change the app port as well" Type="Port" Display="always" Required="true" Mask="false">9898</Config>
-  <Config Name="TZ" Target="TZ" Default="America/Toronto" Mode="" Description="Timezone (not sure if required)" Type="Variable" Display="advanced" Required="false" Mask="false">America/Toronto</Config>
+  <Config Name="BACKREST_DATA" Target="BACKREST_DATA" Default="/data" Mode="" Description="path for backrest data. restic binary and the database are placed here." Type="Variable" Display="always" Required="true" Mask="false">/data</Config>
+  <Config Name="BACKREST_CONFIG" Target="BACKREST_CONFIG" Default="/config/config.json" Mode="" Description="path for the backrest config file." Type="Variable" Display="always" Required="true" Mask="false">/config/config.json</Config>
+  <Config Name="XDG_CACHE_HOME" Target="XDG_CACHE_HOME" Default="/cache" Mode="" Description="path for the restic cache which greatly improves performance." Type="Variable" Display="always" Required="true" Mask="false">/cache</Config>
+  <Config Name="TZ" Target="TZ" Default="America/Toronto" Mode="" Description="Timezone" Type="Variable" Display="advanced" Required="false" Mask="false">America/Toronto</Config>
 </Container>

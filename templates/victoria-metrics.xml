@@ -13,6 +13,8 @@
 &#xD;
 TLDR: It is a faster, more lightweight replacement to InfluxDB/TimescaleDB/etc (up to 20x faster data digestion,  up to 7-10x less ram usage). Can be used in place of InfluxDB in many apps such as HomeAssistant. Includes a great web UI for query exploration.&#xD;
 &#xD;
+For HomeAssistant: drop in replacement for InfluxDB, see https://community.home-assistant.io/t/influxdb-vs-victoriametrics/453361 &#xD;
+&#xD;
 Git repository: https://github.com/VictoriaMetrics/VictoriaMetrics&#xD;
 Dockerhub: https://hub.docker.com/r/victoriametrics/victoria-metrics&#xD;
 Website: https://victoriametrics.com&#xD;
