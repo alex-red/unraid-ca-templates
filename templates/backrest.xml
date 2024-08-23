@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<Container version="2">
+  <Name>backrest</Name>
+  <Repository>garethgeorge/backrest:latest</Repository>
+  <Registry>https://hub.docker.com/r/garethgeorge/backrest</Registry>
+  <Network>bridge</Network>
+  <MyIP/>
+  <Shell>bash</Shell>
+  <Privileged>false</Privileged>
+  <Support>https://forums.unraid.net/topic/146069-support-alexreds-template-repository</Support>
+  <Project>https://github.com/garethgeorge/backrest</Project>
+  <Overview>Web UI and orchestrator for Restic backup.&#xD;
+&#xD;
+Backrest is a web-accessible backup solution built on top of restic and providing a WebUI which wraps the restic CLI and makes it easy to create repos, browse snapshots, and restore files. Additionally, Backrest can run in the background and take an opinionated approach to scheduling snapshots and orchestrating repo health operations.&#xD;
+&#xD;
+Features:&#xD;
+ - Import your existing restic repositories&#xD;
+ - Cron scheduled backups and health operations (e.g. prune and forget)&#xD;
+ - UI for browing and restoring files from snapshots&#xD;
+ - Configurable backup notifications (e.g. Discord, Slack, Shoutrrr, Gotify)&#xD;
+ - Add shell command hooks to run before and after backup operations.&#xD;
+ - Compatible with rclone remotes&#xD;
+ - Cross-platform support (Linux, macOS, Windows, FreeBSD, Docker)&#xD;
+ - Backup to any restic supported storage (e.g. S3, B2, Azure, GCS, local, SFTP, and all rclone remotes)&#xD;
+&#xD;
+Github: https://github.com/garethgeorge/backrest&#xD;
+Documentation: https://garethgeorge.github.io/backrest/introduction/getting-started</Overview>
+  <Category>Backup: Tools:</Category>
+  <WebUI>http://[IP]:[PORT:9898]</WebUI>
+  <TemplateURL/>
+  <Icon>https://raw.githubusercontent.com/alex-red/unraid-ca-templates/master/templates/images/backrest-icon.png</Icon>
+  <ExtraParams/>
+  <PostArgs/>
+  <CPUset/>
+  <DateInstalled>1724388906</DateInstalled>
+  <DonateText/>
+  <DonateLink/>
+  <Requires>Notes&#xD;
+===&#xD;
+Environment Variables&#xD;
+&#xD;
+BACKREST_PORT - the port to bind to. Defaults to 9898.&#xD;
+BACKREST_CONFIG - the path to the config file. Defaults to $HOME/.config/resticui/config.json or if $XDG_CONFIG_HOME is set, $XDG_CONFIG_HOME/resticui/config.json.&#xD;
+BACKREST_DATA - the path to the data directory. Defaults to $HOME/.local/share/resticui or if $XDG_DATA_HOME is set, $XDG_DATA_HOME/resticui.&#xD;
+BACKREST_RESTIC_COMMAND - the path to the restic binary. Defaults managed version of restic which will be downloaded and installed in the data directory.&#xD;
+XDG_CACHE_HOME -- the path to the cache directory. This is propagated to restic.&#xD;
+BACKREST_PORT -- port for webui application</Requires>
+  <Config Name="Config" Target="/config" Default="/mnt/user/appdata/backrest/config" Mode="rw" Description="location of the config.json file" Type="Path" Display="always" Required="true" Mask="false">/mnt/user/appdata/backrest/config</Config>
+  <Config Name="Cache" Target="/cache" Default="/mnt/user/appdata/backrest/cache" Mode="rw" Description="path for the restic cache which greatly improves performance." Type="Path" Display="always" Required="true" Mask="false">/mnt/user/appdata/backrest/cache</Config>
+  <Config Name="Data" Target="/data" Default="/mnt/user/appdata/backrest/data" Mode="rw" Description="" Type="Path" Display="always" Required="true" Mask="false">/mnt/user/appdata/backrest/data</Config>
+  <Config Name="Restic repos" Target="/repos" Default="/mnt/user/appdata/backrest/repos" Mode="rw" Description="(optional) - mount restic repositories on the filesystem" Type="Path" Display="always" Required="false" Mask="false">/mnt/user/appdata/backrest/repos</Config>
+  <Config Name="Path to backup" Target="/backup" Default="/mnt/user/backup" Mode="rw" Description="mount directories for backup" Type="Path" Display="always" Required="false" Mask="false">/mnt/user/backup</Config>
+  <Config Name="WebUI" Target="9898" Default="9898" Mode="tcp" Description="Webui access port, BACKREST_PORT env variable can be used to change the app port as well" Type="Port" Display="always" Required="true" Mask="false">9898</Config>
+  <Config Name="TZ" Target="TZ" Default="America/Toronto" Mode="" Description="Timezone (not sure if required)" Type="Variable" Display="advanced" Required="false" Mask="false">America/Toronto</Config>
+</Container>

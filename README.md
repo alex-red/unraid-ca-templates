@@ -20,7 +20,7 @@ Support thread: https://forums.unraid.net/topic/146069-support-alexreds-template
 
   <tr>
     <td >
-      <img src="https://raw.githubusercontent.com/dbgate/dbgate/master/app/icon.png" alt="DBGate Logo" width="32" height="32"></img>
+      <img src="https://raw.githubusercontent.com/dbgate/dbgate/master/app/icon.png" alt="DBGate Logo" width=32px height=32px></img>
     </td>
     <td>
       <span>DBGate (https://github.com/dbgate/dbgate)</span>
@@ -35,7 +35,7 @@ Support thread: https://forums.unraid.net/topic/146069-support-alexreds-template
 
   <tr>
     <td>
-      <img src="https://raw.githubusercontent.com/alex-red/unraid-ca-templates/master/templates/images/victoria-metrics-logo.png" alt="victoria metrics logo" width="32" height="32"></img>
+      <img src="https://raw.githubusercontent.com/alex-red/unraid-ca-templates/master/templates/images/victoria-metrics-logo.png" alt="victoria metrics logo" width=32px height=32px></img>
     </td>
     <td>
       <span>VictoriaMetrics (https://github.com/VictoriaMetrics/VictoriaMetrics)</span>
@@ -50,7 +50,7 @@ Support thread: https://forums.unraid.net/topic/146069-support-alexreds-template
 
   <tr>
     <td>
-      <img src="https://raw.githubusercontent.com/alex-red/unraid-ca-templates/master/templates/images/m4b-icon.png" alt="m4b icon" width="32" height="32"></img>
+      <img src="https://raw.githubusercontent.com/alex-red/unraid-ca-templates/master/templates/images/m4b-icon.png" alt="m4b icon" width=32px height=32px></img>
     </td>
     <td>
       <span>Auto-m4b (https://github.com/seanap/auto-m4b)</span>
@@ -60,6 +60,22 @@ Support thread: https://forums.unraid.net/topic/146069-support-alexreds-template
     </td>
     <td>
       Auto converts audiobooks with multifile mp3/m4a/ogg/m4b to a chapterized single m4b
+    </td>
+  </tr>
+
+  <!-- Backrest -->
+  <tr>
+    <td>
+      <img src="https://raw.githubusercontent.com/alex-red/unraid-ca-templates/master/templates/images/backrest-icon.png" alt="backrest icon" width=32px height=32px></img>
+    </td>
+    <td>
+      <span>Backrest (https://github.com/garethgeorge/backrest)</span>
+    </td>
+    <td>
+      Backup, Tools
+    </td>
+    <td>
+      WebUI built on top of restic for managing backups
     </td>
   </tr>
 </table>
