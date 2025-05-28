@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <Container version="2">
   <Name>victoria-metrics</Name>
-  <Repository>victoriametrics/victoria-metrics:stable</Repository>
+  <Repository>victoriametrics/victoria-metrics:v1.118.0</Repository>
   <Registry>https://hub.docker.com/r/victoriametrics/victoria-metrics</Registry>
   <Network>bridge</Network>
   <MyIP/>
