@@ -4,14 +4,15 @@
 
 ### backrest
 
-- Map `/mnt/user` to the same path inside the container (read/write), replacing the read only `/mnt/user/backup` → `/backup` mapping. Share paths can now be used as-is in Backrest, and restores no longer fail on a read only mount.
+- `/backup` is now read/write by default so restores work. Backrest restores to a new folder next to the original, which failed on the read only mount.
 - Add `/tmp` path and `TMPDIR` variable for restic/rclone temporary files.
 - Add optional rclone config path (`/root/.config/rclone`) for rclone remotes.
-- `/repos` is now optional with no default, for local repos outside `/mnt/user`.
+- Restic repos now defaults to a dedicated `/mnt/user/backrest-repos` share instead of appdata, so the repo isn't on the same pool as the data or inside the backup path.
+- Clearer descriptions for **Path to backup** and **Restic repos**, explaining that `/backup` and `/repos` are the paths to use inside Backrest.
 - Move `BACKREST_DATA`, `BACKREST_CONFIG` and `XDG_CACHE_HOME` to advanced.
 - Rewrite notes: explain container vs host paths, restore behaviour, and update env variable defaults.
 
-**Existing installs:** your current mappings are kept. To switch, remove the old `/backup` mapping and update your plan paths from `/backup/...` to `/mnt/user/...`.
+**Existing installs:** your current mappings are kept. To fix restores, edit the container and set **Path to backup** to Read/Write.
 
 ## 2025-05-28
 
