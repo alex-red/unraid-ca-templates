@@ -40,7 +40,6 @@ Documentation: https://garethgeorge.github.io/backrest/introduction/getting-star
 - /backup is now read/write by default so restores work. Backrest restores to a new folder next to the original, which failed on the read only mount.&#xD;
 - Add /tmp path and TMPDIR variable, and optional rclone config path.&#xD;
 - Internal env variables moved to advanced.&#xD;
-- Restic repos now defaults to a dedicated /mnt/user/backrest-repos share instead of appdata.&#xD;
 - Clearer descriptions for Path to backup and Restic repos.&#xD;
 - Existing installs keep their current mappings. To fix restores, edit the container and set Path to backup to Read/Write.&#xD;
 &#xD;
@@ -55,7 +54,8 @@ Paths entered in the Backrest UI are paths inside the container, not on the Unra
 &#xD;
  - Path to backup: the host folder (default /mnt/user/backup) is available as /backup. Use /backup/... in backup plans. To back up shares, point it at /mnt/user or a specific share.&#xD;
  - Path to backup is read/write so Backrest can restore files. Restores default to a new folder next to the original (path-backrest-restore-snapshotid). Set it to read only if you never restore through Backrest.&#xD;
- - Restic repos: the host folder (default /mnt/user/backrest-repos) is available as /repos. Use /repos/your-repo as the repo URI for local repos. Keep it on a different share or disk than the data you back up, and don't place it inside Path to backup (or exclude it in the plan) so the repo doesn't back up itself. Not needed for cloud/SFTP/rclone repos.&#xD;
+ - Restic repos: the host folder (default /mnt/user/appdata/backrest/repos) is available as /repos. Use /repos/your-repo as the repo URI for local repos. Not needed for cloud/SFTP/rclone repos.&#xD;
+ - The default is in appdata, which is usually on the cache pool. For local repos, point it at a share or disk separate from the data you back up. If Path to backup includes the repo folder (e.g. backing up /mnt/user or appdata), exclude it in the plan so the repo doesn't back up itself.&#xD;
  - A local repo URI outside /repos (e.g. /mnt/user/resticbackup) is created inside the container and lost when the container is recreated.&#xD;
  - To back up unassigned devices or other locations, add another path mapping for them (e.g. /mnt/disks with access mode RW/Slave).&#xD;
 &#xD;
@@ -72,7 +72,7 @@ TMPDIR - path for temporary files used by restic and rclone.</Requires>
   <Config Name="Cache" Target="/cache" Default="/mnt/user/appdata/backrest/cache" Mode="rw" Description="path for the restic cache which greatly improves performance." Type="Path" Display="always" Required="true" Mask="false">/mnt/user/appdata/backrest/cache</Config>
   <Config Name="Temp" Target="/tmp" Default="/mnt/user/appdata/backrest/tmp" Mode="rw" Description="temporary files used by restic and rclone." Type="Path" Display="advanced" Required="true" Mask="false">/mnt/user/appdata/backrest/tmp</Config>
   <Config Name="Path to backup" Target="/backup" Default="/mnt/user/backup" Mode="rw" Description="Folder with the data to back up, e.g. /mnt/user. In Backrest plans use /backup in place of this path, e.g. /mnt/user/apps becomes /backup/apps. Read/Write is needed to restore files." Type="Path" Display="always" Required="false" Mask="false">/mnt/user/backup</Config>
-  <Config Name="Restic repos" Target="/repos" Default="/mnt/user/backrest-repos" Mode="rw" Description="(optional) Folder to store local restic repos, use a different share or disk than the data you back up. In Backrest set the repo URI to /repos/name in place of this path. Not needed for cloud/SFTP/rclone repos." Type="Path" Display="always" Required="false" Mask="false">/mnt/user/backrest-repos</Config>
+  <Config Name="Restic repos" Target="/repos" Default="/mnt/user/appdata/backrest/repos" Mode="rw" Description="(optional) Folder to store local restic repos. In Backrest set the repo URI to /repos/name in place of this path. The default is in appdata (usually cache), for local repos point this at a separate share or disk from the data you back up. Not needed for cloud/SFTP/rclone repos." Type="Path" Display="always" Required="false" Mask="false">/mnt/user/appdata/backrest/repos</Config>
   <Config Name="Rclone config" Target="/root/.config/rclone" Default="/mnt/user/appdata/backrest/rclone" Mode="rw" Description="(optional) - rclone config directory, needed when using rclone remotes." Type="Path" Display="advanced" Required="false" Mask="false">/mnt/user/appdata/backrest/rclone</Config>
   <Config Name="WebUI" Target="9898" Default="9898" Mode="tcp" Description="Webui access port, BACKREST_PORT env variable can be used to change the app port as well" Type="Port" Display="always" Required="true" Mask="false">9898</Config>
   <Config Name="BACKREST_DATA" Target="BACKREST_DATA" Default="/data" Mode="" Description="path for backrest data. restic binary and the database are placed here." Type="Variable" Display="advanced" Required="true" Mask="false">/data</Config>

@@ -7,7 +7,6 @@
 - `/backup` is now read/write by default so restores work. Backrest restores to a new folder next to the original, which failed on the read only mount.
 - Add `/tmp` path and `TMPDIR` variable for restic/rclone temporary files.
 - Add optional rclone config path (`/root/.config/rclone`) for rclone remotes.
-- Restic repos now defaults to a dedicated `/mnt/user/backrest-repos` share instead of appdata, so the repo isn't on the same pool as the data or inside the backup path.
 - Clearer descriptions for **Path to backup** and **Restic repos**, explaining that `/backup` and `/repos` are the paths to use inside Backrest.
 - Move `BACKREST_DATA`, `BACKREST_CONFIG` and `XDG_CACHE_HOME` to advanced.
 - Rewrite notes: explain container vs host paths, restore behaviour, and update env variable defaults.
