@@ -36,6 +36,17 @@ Documentation: https://garethgeorge.github.io/backrest/introduction/getting-star
   <DateInstalled>1724448808</DateInstalled>
   <DonateText/>
   <DonateLink/>
+  <Changes>### 2026.11.05&#xD;
+- Map /mnt/user to the same path inside the container (read/write), replacing the read only /mnt/user/backup to /backup mapping. Share paths can now be used as-is in Backrest and restores work.&#xD;
+- Add /tmp path and TMPDIR variable, and optional rclone config path.&#xD;
+- /repos is now optional, internal env variables moved to advanced.&#xD;
+- Existing installs keep their current mappings. To switch, remove the old /backup mapping and update plan paths from /backup/... to /mnt/user/...&#xD;
+&#xD;
+### 2024.08.23&#xD;
+- Fix env variables.&#xD;
+&#xD;
+### 2024.08.22&#xD;
+- Initial template.</Changes>
   <Requires>Notes&#xD;
 ===&#xD;
 Paths entered in the Backrest UI are paths inside the container, not on the Unraid host. Only mapped paths are visible to Backrest and anything written elsewhere is lost when the container is recreated.&#xD;
