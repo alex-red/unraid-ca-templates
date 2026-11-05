@@ -16,12 +16,13 @@ Backrest is a web-accessible backup solution built on top of restic and providin
 Features:&#xD;
  - Import your existing restic repositories&#xD;
  - Cron scheduled backups and health operations (e.g. prune and forget)&#xD;
- - UI for browing and restoring files from snapshots&#xD;
+ - UI for browsing and restoring files from snapshots&#xD;
  - Configurable backup notifications (e.g. Discord, Slack, Shoutrrr, Gotify)&#xD;
  - Add shell command hooks to run before and after backup operations.&#xD;
  - Compatible with rclone remotes&#xD;
- - Cross-platform support (Linux, macOS, Windows, FreeBSD, Docker)&#xD;
  - Backup to any restic supported storage (e.g. S3, B2, Azure, GCS, local, SFTP, and all rclone remotes)&#xD;
+&#xD;
+By default /mnt/user is mounted at the same path inside the container, so share paths like /mnt/user/appdata can be used as-is for backup plans, local repos and restores.&#xD;
 &#xD;
 Github: https://github.com/garethgeorge/backrest&#xD;
 Documentation: https://garethgeorge.github.io/backrest/introduction/getting-started</Overview>
@@ -37,22 +38,31 @@ Documentation: https://garethgeorge.github.io/backrest/introduction/getting-star
   <DonateLink/>
   <Requires>Notes&#xD;
 ===&#xD;
+Paths entered in the Backrest UI are paths inside the container, not on the Unraid host. Only mapped paths are visible to Backrest and anything written elsewhere is lost when the container is recreated.&#xD;
+&#xD;
+ - User shares: host /mnt/user is mapped to /mnt/user, so use share paths directly (e.g. backup /mnt/user/apps to a repo at /mnt/user/resticbackup).&#xD;
+ - The mapping is read/write so Backrest can restore files. Restores default to a new folder next to the original (path-backrest-restore-snapshotid). Set it to read only if you never restore through Backrest.&#xD;
+ - To back up unassigned devices or other locations, add a path mapping for them (e.g. /mnt/disks with access mode RW/Slave).&#xD;
+&#xD;
 Environment Variables&#xD;
 &#xD;
-BACKREST_PORT - the port to bind to. Defaults to 9898.&#xD;
-BACKREST_CONFIG - the path to the config file. Defaults to $HOME/.config/resticui/config.json or if $XDG_CONFIG_HOME is set, $XDG_CONFIG_HOME/resticui/config.json.&#xD;
-BACKREST_DATA - the path to the data directory. Defaults to $HOME/.local/share/resticui or if $XDG_DATA_HOME is set, $XDG_DATA_HOME/resticui.&#xD;
-BACKREST_RESTIC_COMMAND - the path to the restic binary. Defaults managed version of restic which will be downloaded and installed in the data directory.&#xD;
-XDG_CACHE_HOME -- the path to the cache directory. This is propagated to restic.&#xD;
-BACKREST_PORT -- port for webui application</Requires>
+BACKREST_PORT - address/port to bind to. Defaults to 0.0.0.0:9898 in the docker image.&#xD;
+BACKREST_CONFIG - path to the config file.&#xD;
+BACKREST_DATA - path to the data directory. The managed restic binary and the operation database are stored here.&#xD;
+BACKREST_RESTIC_COMMAND - path to the restic binary. Defaults to a Backrest managed version of restic in the data directory.&#xD;
+XDG_CACHE_HOME - path to the cache directory. This is propagated to restic.&#xD;
+TMPDIR - path for temporary files used by restic and rclone.</Requires>
   <Config Name="Config" Target="/config" Default="/mnt/user/appdata/backrest/config" Mode="rw" Description="location of the config.json file" Type="Path" Display="always" Required="true" Mask="false">/mnt/user/appdata/backrest/config</Config>
+  <Config Name="Data" Target="/data" Default="/mnt/user/appdata/backrest/data" Mode="rw" Description="backrest data directory. The restic binary and the operation database are placed here." Type="Path" Display="always" Required="true" Mask="false">/mnt/user/appdata/backrest/data</Config>
   <Config Name="Cache" Target="/cache" Default="/mnt/user/appdata/backrest/cache" Mode="rw" Description="path for the restic cache which greatly improves performance." Type="Path" Display="always" Required="true" Mask="false">/mnt/user/appdata/backrest/cache</Config>
-  <Config Name="Data" Target="/data" Default="/mnt/user/appdata/backrest/data" Mode="rw" Description="" Type="Path" Display="always" Required="true" Mask="false">/mnt/user/appdata/backrest/data</Config>
-  <Config Name="Restic repos" Target="/repos" Default="/mnt/user/appdata/backrest/repos" Mode="rw" Description="(optional) - mount restic repositories on the filesystem" Type="Path" Display="always" Required="false" Mask="false">/mnt/user/appdata/backrest/repos</Config>
-  <Config Name="Path to backup" Target="/backup" Default="/mnt/user/backup" Mode="ro" Description="mount directories for backup" Type="Path" Display="always" Required="false" Mask="false">/mnt/user/backup</Config>
+  <Config Name="Temp" Target="/tmp" Default="/mnt/user/appdata/backrest/tmp" Mode="rw" Description="temporary files used by restic and rclone." Type="Path" Display="advanced" Required="true" Mask="false">/mnt/user/appdata/backrest/tmp</Config>
+  <Config Name="User shares" Target="/mnt/user" Default="/mnt/user" Mode="rw" Description="mounted at the same path inside the container so share paths can be used as-is in Backrest for backup plans, local repos and restores. Read/write is required to restore files, set to read only if you never restore through Backrest." Type="Path" Display="always" Required="false" Mask="false">/mnt/user</Config>
+  <Config Name="Rclone config" Target="/root/.config/rclone" Default="/mnt/user/appdata/backrest/rclone" Mode="rw" Description="(optional) - rclone config directory, needed when using rclone remotes." Type="Path" Display="advanced" Required="false" Mask="false">/mnt/user/appdata/backrest/rclone</Config>
+  <Config Name="Restic repos" Target="/repos" Default="" Mode="rw" Description="(optional) - extra location for local restic repos outside of /mnt/user. Use /repos/your-repo as the repo path in Backrest." Type="Path" Display="advanced" Required="false" Mask="false"/>
   <Config Name="WebUI" Target="9898" Default="9898" Mode="tcp" Description="Webui access port, BACKREST_PORT env variable can be used to change the app port as well" Type="Port" Display="always" Required="true" Mask="false">9898</Config>
-  <Config Name="BACKREST_DATA" Target="BACKREST_DATA" Default="/data" Mode="" Description="path for backrest data. restic binary and the database are placed here." Type="Variable" Display="always" Required="true" Mask="false">/data</Config>
-  <Config Name="BACKREST_CONFIG" Target="BACKREST_CONFIG" Default="/config/config.json" Mode="" Description="path for the backrest config file." Type="Variable" Display="always" Required="true" Mask="false">/config/config.json</Config>
-  <Config Name="XDG_CACHE_HOME" Target="XDG_CACHE_HOME" Default="/cache" Mode="" Description="path for the restic cache which greatly improves performance." Type="Variable" Display="always" Required="true" Mask="false">/cache</Config>
-  <Config Name="TZ" Target="TZ" Default="America/Toronto" Mode="" Description="Timezone" Type="Variable" Display="advanced" Required="false" Mask="false">America/Toronto</Config>
+  <Config Name="BACKREST_DATA" Target="BACKREST_DATA" Default="/data" Mode="" Description="path for backrest data. restic binary and the database are placed here." Type="Variable" Display="advanced" Required="true" Mask="false">/data</Config>
+  <Config Name="BACKREST_CONFIG" Target="BACKREST_CONFIG" Default="/config/config.json" Mode="" Description="path for the backrest config file." Type="Variable" Display="advanced" Required="true" Mask="false">/config/config.json</Config>
+  <Config Name="XDG_CACHE_HOME" Target="XDG_CACHE_HOME" Default="/cache" Mode="" Description="path for the restic cache which greatly improves performance." Type="Variable" Display="advanced" Required="true" Mask="false">/cache</Config>
+  <Config Name="TMPDIR" Target="TMPDIR" Default="/tmp" Mode="" Description="path for temporary files used by restic and rclone." Type="Variable" Display="advanced" Required="true" Mask="false">/tmp</Config>
+  <Config Name="TZ" Target="TZ" Default="America/Toronto" Mode="" Description="Timezone, used for backup schedules" Type="Variable" Display="advanced" Required="false" Mask="false">America/Toronto</Config>
 </Container>
